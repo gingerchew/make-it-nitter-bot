@@ -38,7 +38,10 @@ client.on('messageCreate', async (message:Message) => {
      * type in the command `!DESTROY_ALL_INSTANCES_AGGRESSIVELY`
      * to do a _hard_ reset
      */
-    if (content === '!!DESTROY_ALL_INSTANCES_AGGRESSIVELY!!') return client.destroy();
+    if (content === '!!DESTROY_ALL_INSTANCES_AGGRESSIVELY!!') {
+        message.reply('Message Received. Destroying all instances.');
+        return client.destroy();
+    }
     const nitterURLs = isATwitterLink(content);
     
 
