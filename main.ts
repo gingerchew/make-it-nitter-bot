@@ -27,14 +27,14 @@ const isATwitterLink = (str: String) => {
 }
 
 
-client.on('messageCreate', (message:Message) => {
+client.on('messageCreate', async (message:Message) => {
 
     const {
         member, content
     } = message
 
     if (member.user.username === 'make-it-nitter') return;
-
+    if (content === '!DESTROY_ME') return client.destroy();
     const {
         matchingURLs,
         nitterURLs
