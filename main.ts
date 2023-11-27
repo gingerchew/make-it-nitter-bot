@@ -20,10 +20,7 @@ const isATwitterLink = (str: String) => {
 
     const nitterURLs = [...matchingURLs].map(match => convertToNitter(match));
 
-    return {
-        matchingURLs,
-        nitterURLs
-    }
+    return nitterURLS;
 }
 
 
@@ -34,14 +31,18 @@ client.on('messageCreate', async (message:Message) => {
     } = message
 
     if (member.user.username === 'make-it-nitter') return;
-    if (content === '!DESTROY_ME') return client.destroy();
-    const {
-        matchingURLs,
-        nitterURLs
-    } = isATwitterLink(content);
+    
+    /** 
+     * Even though multiple instances shouldn't be possible 
+     * it could still happen
+     * type in the command `!DESTROY_ALL_INSTANCES_AGGRESSIVELY`
+     * to do a _hard_ reset
+     */
+    if (content === '!!DESTROY_ALL_INSTANCES_AGGRESSIVELY!!') return client.destroy();
+    const nitterURLs = isATwitterLink(content);
     
 
-    if (matchingURLs.length > 0) {
+    if (nitterURLs.length > 0) {
         message.reply(`Here's the Nitter version of those links: ${nitterURLs.join(', ')}`);
     }
 })
